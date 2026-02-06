@@ -16,5 +16,6 @@ for i in range(attempts):
     else:
         print("Більше")
 
+
 else:
     print(f"На жаль, спроби закінчилися. Я загадав число {secret_number}.")
