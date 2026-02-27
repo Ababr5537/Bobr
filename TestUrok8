@@ -1,0 +1,19 @@
+import unittest
+from main import check_age
+
+class TestAgeValidation(unittest.TestCase):
+    
+    def test_adult(self):
+        self.assertTrue(check_age(20))
+        self.assertTrue(check_age(18))
+
+    def test_minor(self):
+        self.assertFalse(check_age(17))
+        self.assertFalse(check_age(10))
+
+    def test_invalid_input(self):
+        self.assertEqual(check_age("20"), False)
+        self.assertEqual(check_age("текст"), False)
+
+if __name__ == "__main__":
+    unittest.main()
