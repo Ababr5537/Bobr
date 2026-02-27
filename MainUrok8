@@ -1,0 +1,4 @@
+def check_age(age):
+    if not isinstance(age, (int, float)):
+        return False
+    return age >= 18
