@@ -1,0 +1,23 @@
+class EvenNumbers:
+    def __init__(self, limit):
+        self.limit = limit
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.current < self.limit:
+            if self.current % 2 == 0:
+                even_number = self.current
+                self.current += 1
+                return even_number
+            
+            self.current += 1
+        
+        raise StopIteration
+
+even_iterator = EvenNumbers(10)
+
+for num in even_iterator:
+    print(num)
