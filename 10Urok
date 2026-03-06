@@ -1,0 +1,57 @@
+import sqlite3
+
+connection = sqlite3.connect('squle.txt')
+cur = connection.cursor()
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS Students (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT,
+    Age INTEGER
+)
+""")
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS Courses (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    CourseName TEXT,
+    TeacherID INTEGER
+)
+""")
+connection.commit()
+
+students_data = [
+    ('Олександр', 17),
+    ('Марія', 19),
+    ('Ілля', 16),
+    ('Анна', 20),
+    ('Дмитро', 21)
+]
+
+courses_data = [
+    ('Математика', 101),
+    ('Історія', 102),
+    ('Програмування', 103),
+    ('Біологія', 104),
+    ('Фізика', 105)
+]
+
+cur.executemany("INSERT INTO Students (Name, Age) VALUES (?, ?);", students_data)
+cur.executemany("INSERT INTO Courses (CourseName, TeacherID) VALUES (?, ?);", courses_data)
+connection.commit()
+
+print("Всі студенти в базі:")
+cur.execute("SELECT * FROM Students;")
+all_students = cur.fetchall()
+for student in all_students:
+    print(student)
+
+print("-" * 30)
+
+print("Студенти старше 18 років:")
+cur.execute("SELECT Name, Age FROM Students WHERE Age > 18;")
+older_students = cur.fetchall()
+for student in older_students:
+    print(student)
+
+connection.close()
